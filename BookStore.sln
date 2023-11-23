@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore", "BookStore\BookStore.csproj", "{52D4D41C-D694-480D-B01D-2902A9477F9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{9551CFDB-EF3B-44AA-BF3D-0BAEAAA25D9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{A9136F88-0C8C-424B-B90B-38694E52A40E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52D4D41C-D694-480D-B01D-2902A9477F9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52D4D41C-D694-480D-B01D-2902A9477F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52D4D41C-D694-480D-B01D-2902A9477F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52D4D41C-D694-480D-B01D-2902A9477F9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9551CFDB-EF3B-44AA-BF3D-0BAEAAA25D9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9551CFDB-EF3B-44AA-BF3D-0BAEAAA25D9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9551CFDB-EF3B-44AA-BF3D-0BAEAAA25D9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9551CFDB-EF3B-44AA-BF3D-0BAEAAA25D9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9136F88-0C8C-424B-B90B-38694E52A40E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9136F88-0C8C-424B-B90B-38694E52A40E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9136F88-0C8C-424B-B90B-38694E52A40E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9136F88-0C8C-424B-B90B-38694E52A40E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DCCB6822-5708-4BD3-841B-EF634FB5684D}
+	EndGlobalSection
+EndGlobal

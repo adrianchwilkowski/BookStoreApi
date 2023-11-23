@@ -1,0 +1,62 @@
+[
+  {
+    "id": "3F2504E0-4F89-41D3-9A0C-0305E82C3301",
+    "title": "The Catcher in the Rye",
+    "author": "J.D. Salinger",
+    "pages": 224
+  },
+  {
+    "id": "AD2D7D2D-5C64-4F33-9807-3D2127E17A52",
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "pages": 336
+  },
+  {
+    "id": "A1E28922-8A2D-4F63-80D8-3D32A615DCD3",
+    "title": "1984",
+    "author": "George Orwell",
+    "pages": 328
+  },
+  {
+    "id": "76E7C6D7-A99D-4A5F-A2E5-02A7C562BFC2",
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "pages": 180
+  },
+  {
+    "id": "9A3488AB-91C0-4A96-95B0-876F4A5FF24F",
+    "title": "Moby-Dick",
+    "author": "Herman Melville",
+    "pages": 635
+  },
+  {
+    "id": "C1A20D74-43B7-4F6F-86E5-16DFA225DE78",
+    "title": "Pride and Prejudice",
+    "author": "Jane Austen",
+    "pages": 432
+  },
+  {
+    "id": "F1B8D1C8-C3D5-4A3A-9A0E-52C0E4859329",
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "pages": 310
+  },
+  {
+    "id": "633A76F4-C4E2-426D-8D8F-1E6D8B6FECC2",
+    "title": "Brave New World",
+    "author": "Aldous Huxley",
+    "pages": 311
+  },
+  {
+    "id": "4C91B53A-809E-44FD-9E96-7242C23F7CEB",
+    "title": "One Hundred Years of Solitude",
+    "author": "Gabriel Garcia Marquez",
+    "pages": 417
+  },
+  {
+    "id": "F37ED8C8-2D6F-41B0-AE2B-56110B8C372A",
+    "title": "The Lord of the Rings",
+    "author": "J.R.R. Tolkien",
+    "pages": 1178
+  }
+]

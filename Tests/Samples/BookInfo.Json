@@ -1,0 +1,52 @@
+[
+  {
+    "BookId": "3F2504E0-4F89-41D3-9A0C-0305E82C3301",
+    "Price": 20.99,
+    "Quantity": 50
+  },
+  {
+    "BookId": "AD2D7D2D-5C64-4F33-9807-3D2127E17A52",
+    "Price": 15.50,
+    "Quantity": 30
+  },
+  {
+    "BookId": "A1E28922-8A2D-4F63-80D8-3D32A615DCD3",
+    "Price": 18.75,
+    "Quantity": 40
+  },
+  {
+    "BookId": "76E7C6D7-A99D-4A5F-A2E5-02A7C562BFC2",
+    "Price": 22.30,
+    "Quantity": 25
+  },
+  {
+    "BookId": "9A3488AB-91C0-4A96-95B0-876F4A5FF24F",
+    "Price": 30.00,
+    "Quantity": 20
+  },
+  {
+    "BookId": "C1A20D74-43B7-4F6F-86E5-16DFA225DE78",
+    "Price": 25.50,
+    "Quantity": 35
+  },
+  {
+    "BookId": "F1B8D1C8-C3D5-4A3A-9A0E-52C0E4859329",
+    "Price": 28.75,
+    "Quantity": 28
+  },
+  {
+    "BookId": "633A76F4-C4E2-426D-8D8F-1E6D8B6FECC2",
+    "Price": 19.99,
+    "Quantity": 42
+  },
+  {
+    "BookId": "4C91B53A-809E-44FD-9E96-7242C23F7CEB",
+    "Price": 32.50,
+    "Quantity": 18
+  },
+  {
+    "BookId": "F37ED8C8-2D6F-41B0-AE2B-56110B8C372A",
+    "Price": 45.00,
+    "Quantity": 15
+  }
+]
