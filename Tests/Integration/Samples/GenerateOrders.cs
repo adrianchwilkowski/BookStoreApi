@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tests.Samples
+namespace Tests.Integration.Samples
 {
     public class GenerateOrders
     {
@@ -23,25 +23,25 @@ namespace Tests.Samples
             List<Order> orders = new List<Order>();
             double price = 0;
             var userId = Guid.NewGuid();
-            foreach(var orderedBook in _orderedBooks)
+            foreach (var orderedBook in _orderedBooks)
             {
                 try
                 {
                     price = GetBookPriceByBookId(_bookInfo, orderedBook.Id);
                     var order = orders.First(o => o.Id == orderedBook.OrderId);
                 }
-                catch(NotFoundException ex)
+                catch (NotFoundException ex)
                 {
                     throw ex;
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     CreateOrder(orders, price, orderedBook.Amount, 1, userId);
                 }
             }
             return orders;
         }
-        private void CreateOrder(List<Order> orders, double price , int amount, int deliveryType, Guid userId)
+        private void CreateOrder(List<Order> orders, double price, int amount, int deliveryType, Guid userId)
         {
             var order = new Order
             {
