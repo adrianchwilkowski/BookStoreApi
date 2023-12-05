@@ -53,6 +53,9 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
@@ -60,6 +63,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BookId");
 
                     b.ToTable("BookInfo");
                 });
@@ -76,6 +81,9 @@ namespace Infrastructure.Migrations
                     b.Property<double>("FullCost")
                         .HasColumnType("float");
 
+                    b.Property<bool>("IsSent")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
@@ -84,24 +92,73 @@ namespace Infrastructure.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Infrastructure.Entities.OrderedBooks", b =>
+            modelBuilder.Entity("Infrastructure.Entities.OrderedItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("BookId")
+                    b.Property<Guid>("BookInfoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("OrderedBooks");
+                    b.HasIndex("BookInfoId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderedItems");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.BookInfo", b =>
+                {
+                    b.HasOne("Infrastructure.Entities.Book", "Book")
+                        .WithMany("BookInfoList")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.OrderedItem", b =>
+                {
+                    b.HasOne("Infrastructure.Entities.BookInfo", "BookInfo")
+                        .WithMany("Items")
+                        .HasForeignKey("BookInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Infrastructure.Entities.Order", "Order")
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BookInfo");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.Book", b =>
+                {
+                    b.Navigation("BookInfoList");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.BookInfo", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.Order", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }
