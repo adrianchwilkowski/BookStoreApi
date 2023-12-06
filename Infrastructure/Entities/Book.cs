@@ -14,7 +14,7 @@ namespace Infrastructure.Entities
         public string? Description { get; private set; }
         public int Pages { get; private set; }
         public IEnumerable<BookInfo> BookInfoList { get; private set; } = null!;
-        public Book Create(string title, string author, string? description, int pages)
+        public static Book Create(string title, string author, string? description, int pages)
         {
             return new Book()
             {
@@ -28,7 +28,7 @@ namespace Infrastructure.Entities
         }
         public void AddBookInfo(double price, int quantity)
         {
-            var bookInfo = BookInfo.Create(Id, price, quantity, this);
+            var bookInfo = BookInfo.Create(price, quantity, this);
             BookInfoList.Append(bookInfo);
         }
     }

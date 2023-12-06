@@ -17,14 +17,14 @@ namespace Infrastructure.Entities
         public Book Book { get; private set; } = null!;
         public IEnumerable<OrderedItem> Items { get; private set; } = null!;
 
-        public static BookInfo Create(Guid bookId, double price, int quantity, Book book)
+        public static BookInfo Create(double price, int quantity, Book book)
         {
             return new BookInfo
             {
                 Id = Guid.NewGuid(),
                 Price = price,
                 Quantity = quantity,
-                BookId = bookId,
+                BookId = book.Id,
                 Book = book
             };
         }

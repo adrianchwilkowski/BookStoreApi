@@ -15,15 +15,15 @@ namespace Infrastructure.Entities
         public int Quantity { get; private set; }
         public BookInfo BookInfo { get; private set; } = null!;
         public Order Order{ get; private set; } = null!;
-        public static OrderedItem Create(Guid bookInfoId, Guid orderId, BookInfo book, Order order)
+        public static OrderedItem Create(BookInfo bookInfo, Order order)
         {
             return new OrderedItem()
             {
                 Id = Guid.NewGuid(),
-                BookInfoId = bookInfoId,
-                OrderId = orderId,
+                BookInfoId = bookInfo.Id,
+                OrderId = order.Id,
                 Quantity = 0,
-                BookInfo = book,
+                BookInfo = bookInfo,
                 Order = order
             };
         }

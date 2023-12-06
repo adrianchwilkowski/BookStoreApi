@@ -25,7 +25,7 @@ namespace Infrastructure.Entities
         {
             if(!IsSent)
             {
-                var item = OrderedItem.Create(bookId, Id, book, this);
+                var item = OrderedItem.Create(book, this);
                 item.ChangeQuantity(quantity);
                 Items.Append(item);
             }
@@ -33,7 +33,15 @@ namespace Infrastructure.Entities
             {
                 throw new OrderInProgressException("cannot modify order after sending");
             }
-            
+        }
+        public bool ChangeIsSentStatus(bool isSent)
+        {
+            if (isSent != IsSent) 
+            {
+                IsSent = isSent;
+                return true;
+            }
+            return false;
         }
     }
 }
