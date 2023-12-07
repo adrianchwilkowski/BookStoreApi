@@ -8,7 +8,7 @@ namespace Tests.Integration
     public class IntegrationTestBase
     {
         private static string currentDir = AppDomain.CurrentDomain.BaseDirectory;
-        protected string samplesDir = System.IO.Path.Combine(currentDir, @"..\..\..\Integration\Samples\"); 
+        public static string samplesDir = System.IO.Path.Combine(currentDir, @"..\..\..\Integration\Samples\"); 
         protected static ApplicationDbContext TestDbContext()
         {
             return new ApplicationDbContext(new DbContextOptionsBuilder()
