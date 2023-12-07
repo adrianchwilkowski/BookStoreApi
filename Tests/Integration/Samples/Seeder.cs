@@ -62,8 +62,34 @@ namespace Tests.Integration.Samples
                 bookInfoList.Add(bookInfoToAdd);
             }
 
+            var orderList = new List<Order>();
+            var orderCount = 10;
+            for(var j=0; j < orderCount; j++)
+            {
+                orderList.Add(
+                    Order.Create(
+                        j % 3,
+                        Guid.NewGuid()
+                        ));
+            }
+
+            var orderItemPerOrder = 2;
+            var orderItemCount = orderItemPerOrder * orderCount;
+            var orderItemList = new List<OrderedItem>();
+            Random rnd = new Random();
+            for (var j = 0; j < orderItemCount; j++)
+            {
+                orderItemList.Add(
+                    OrderedItem.Create(
+                        bookInfoList[rnd.Next(bookInfoList.Count)],
+                        orderList[j/orderItemPerOrder]
+                        ));
+            }
+
             context.Books.AddRange(books);
             context.BookInfo.AddRange(bookInfoList);
+            context.Orders.AddRange(orderList);
+            context.OrderedItems.AddRange(orderItemList);
             context.SaveChanges();
         }
     }
