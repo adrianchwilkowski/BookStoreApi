@@ -77,6 +77,7 @@ namespace Tests.Integration.Samples
                     books[i]
                     );
                 bookInfoList.Add(bookInfoToAdd);
+                i++;
             }
             return bookInfoList;
         }

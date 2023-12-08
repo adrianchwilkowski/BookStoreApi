@@ -10,10 +10,6 @@ namespace Tests.Integration.Tests
         [Test]
         public void CanGetBookList()
         {
-            var context = TestDbContext();
-            Seeder.Seed(context);
-            var booksRepository = new BooksRepository(context);
-
             var result = booksRepository.GetBooks();
 
             Assert.True(result.Any());

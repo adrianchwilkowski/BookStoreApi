@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Tests.Integration.Samples;
 
 namespace Tests.Integration
 {
@@ -17,6 +18,7 @@ namespace Tests.Integration
         {
             DestroyDatabase();
             CreateDatabase();
+            Seeder.Seed(context);
         }
 
         public void Dispose()
@@ -31,7 +33,6 @@ namespace Tests.Integration
                 ON (NAME = 'test',
                 FILENAME = '{Filename}')");
 
-            var context = TestDbContext();
             context.Database.Migrate();
         }
 
