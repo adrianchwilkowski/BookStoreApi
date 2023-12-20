@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Entities;
+using Infrastructure.Exceptions;
 using Infrastructure.Migrations;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,18 +12,42 @@ namespace Infrastructure.Repositories
 {
     public interface IBooksRepository
     {
-        List<Book> GetBooks();
+        Task<List<Book>> GetBooks();
+        Task<Book> GetById(Guid id);
+        Task Create(Book book);
     }
     public class BooksRepository : IBooksRepository
     {
         public ApplicationDbContext Context { get; set; }
         public BooksRepository(ApplicationDbContext context) {  Context = context; }
 
-        public List<Book> GetBooks()
+        public async Task<List<Book>> GetBooks()
         {
-            return Context.Books
+            return await Context.Books
                 .AsNoTracking()
-                .ToList();
+                .ToListAsync();
+        }
+        public async Task<Book> GetById(Guid id)
+        {
+            try
+            {
+                return await Context.Books
+                .Where(x => x.Id == id)
+                .FirstAsync();
+            }
+            catch (Exception) { throw new NotFoundException("Book with given ID doesn't exist."); }
+        }
+        public async Task Create(Book book)
+        {
+            Context.Books
+                .Add(book);
+            try {
+                await Context.SaveChangesAsync();
+            } 
+            catch (Exception) 
+            {
+                throw new AlreadyExistsException("Book with given ID already exists.");
+            }
         }
     }
 }
