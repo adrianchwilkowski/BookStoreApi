@@ -15,5 +15,6 @@ public static class DependencyInjection
     public static void RegisterRepositories(this IServiceCollection services)
     {
         services.AddTransient<IBooksRepository, BooksRepository>();
+        services.AddTransient<IBookInfoRepository, BookInfoRepository>();
     }
 }
