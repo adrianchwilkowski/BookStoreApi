@@ -16,6 +16,7 @@ namespace Tests.Integration
         public static ApplicationDbContext context = TestDbContext();
 
         protected readonly IBooksRepository booksRepository;
+        protected readonly IBookInfoRepository bookInfoRepository;
 
         public IntegrationTestBase() 
         {
@@ -25,6 +26,7 @@ namespace Tests.Integration
             options.UseSqlServer(test.ConnectionString));
             var serviceProvider = services.BuildServiceProvider();
             booksRepository = serviceProvider.GetRequiredService<IBooksRepository>();
+            bookInfoRepository = serviceProvider.GetRequiredService<IBookInfoRepository>();
         }
         protected static ApplicationDbContext TestDbContext()
         {

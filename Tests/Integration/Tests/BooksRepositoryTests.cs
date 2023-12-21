@@ -18,7 +18,6 @@ namespace Tests.Integration.Tests
         [Test]
         public async Task CanCreateBook()
         {
-            var booksRepository = new BooksRepository(context);
             var book = Book.Create("title", "author", "", 128);
 
             var books = await booksRepository.GetBooks();
@@ -32,7 +31,6 @@ namespace Tests.Integration.Tests
         [Test]
         public async Task CreateBook_WhileTryingAddBookWithSameId_ThrowsAlreadyExistsException()
         {
-            var booksRepository = new BooksRepository(context);
             var books = await booksRepository.GetBooks();
 
             var book = Book.Create("title", "author", "", 128);
