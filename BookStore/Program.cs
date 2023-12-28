@@ -32,6 +32,10 @@ builder.Services.AddAuthentication(x =>
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("JwtSettings"));
 builder.Services.AddAuthorization(options =>
 {
+    options.AddPolicy("UserPolicy", policy =>
+    {
+        policy.RequireRole(Roles.User.ToString());
+    });
     options.AddPolicy("ManagerPolicy", policy =>
     {
         policy.RequireRole(Roles.Manager.ToString());
@@ -44,8 +48,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.RegisterDbContext(builder.Configuration);
+builder.Services.RegisterRepositories();
 
 builder.Services.AddTransient<IIdentityService, IdentityService>();
+builder.Services.AddTransient<IBookSearchService, BookSearchService>();
 
 var app = builder.Build();
 
