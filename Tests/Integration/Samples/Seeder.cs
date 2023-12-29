@@ -5,10 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure;
 using Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Migrations;
 using System.Globalization;
+using Microsoft.AspNetCore.Identity;
+using Infrastructure.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using BookStore.Services;
+using Microsoft.Extensions.Options;
 
 namespace Tests.Integration.Samples
 {
@@ -94,7 +102,7 @@ namespace Tests.Integration.Samples
             }
             return orderList;
         }
-        public static List<OrderedItem> SeedOrderItems(List<Order> orders, List<BookInfo> bookInfoList , int orderItemPerOrder)
+        public static List<OrderedItem> SeedOrderItems(List<Order> orders, List<BookInfo> bookInfoList, int orderItemPerOrder)
         {
             var orderItemCount = orderItemPerOrder * orders.Count;
             var orderItemList = new List<OrderedItem>();
@@ -109,5 +117,83 @@ namespace Tests.Integration.Samples
             }
             return orderItemList;
         }
+        public static async Task SeedUsers(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            var user = new IdentityUser
+            {
+                UserName = "user",
+                Email = "user@gmail.com"
+            };
+            var manager = new IdentityUser
+            {
+                UserName = "manager",
+                Email = "manager@gmail.com"
+            };
+            var admin = new IdentityUser
+            {
+                UserName = "admin",
+                Email = "admin@gmail.com"
+            };
+            await userManager.CreateAsync(user, "zaq1@WSX");
+            await userManager.CreateAsync(manager, "zaq1@WSX");
+            await userManager.CreateAsync(admin, "zaq1@WSX");
+
+            var userRole = new IdentityRole
+            {
+                Name = Roles.User.ToString()
+            };
+            var managerRole = new IdentityRole
+            {
+                Name = Roles.Manager.ToString()
+            };
+            var adminRole = new IdentityRole
+            {
+                Name = Roles.Admin.ToString()
+            };
+            await roleManager.CreateAsync(userRole);
+            await roleManager.CreateAsync(managerRole);
+            await roleManager.CreateAsync(adminRole);
+
+            await userManager.AddToRoleAsync(user, userRole.Name);
+            await userManager.AddToRolesAsync(manager, new List<string> {
+                userRole.Name,
+                managerRole.Name
+            });
+            await userManager.AddToRolesAsync(admin, new List<string> {
+                userRole.Name,
+                managerRole.Name,
+                adminRole.Name
+            });
+        }
+    }
+    public class SeedToDb
+    {
+        [Test]
+        public async Task Seed()
+        {
+            var services = new ServiceCollection();
+            var directory = AppDomain.CurrentDomain.BaseDirectory;
+            for (int i = 0; i < 5; i++)
+            {
+                directory = Path.GetDirectoryName(directory);
+            }
+            directory = Path.Combine(directory, "BookStore");
+            var configuration = new ConfigurationBuilder()
+                    .SetBasePath(directory)
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .Build();
+            services.RegisterDbContext(configuration);
+            services.RegisterRepositories();
+            services.AddScoped<UserManager<IdentityUser>>();
+            services.AddScoped<RoleManager<IdentityRole>>();
+            services.AddDataProtection();
+            var serviceProvider = services.BuildServiceProvider();//tutaj
+            var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            Seeder.Seed(context);
+            await Seeder.SeedUsers(userManager, roleManager);
+        }
+        
     }
 }
