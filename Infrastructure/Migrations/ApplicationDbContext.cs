@@ -1,10 +1,12 @@
 ﻿using Infrastructure.Entities;
+using Infrastructure.Entities.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Migrations
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
@@ -31,6 +33,13 @@ namespace Infrastructure.Migrations
                 .HasOne(e => e.BookInfo)
                 .WithMany(e => e.Items)
                 .IsRequired();
+
+            builder.Entity<IdentityUserLogin<string>>()
+            .HasKey(l => new { l.LoginProvider, l.ProviderKey });
+            builder.Entity<IdentityUserRole<string>>()
+            .HasKey(ur => new { ur.UserId, ur.RoleId });
+            builder.Entity<IdentityUserToken<string>>()
+            .HasKey(t => new { t.UserId, t.LoginProvider, t.Name });
         }
     }
 }
