@@ -67,6 +67,10 @@ builder.Services.AddAuthorization(options =>
     {
         policy.RequireRole(Roles.Manager.ToString());
     });
+    options.AddPolicy("AdminPolicy", policy =>
+    {
+        policy.RequireRole(Roles.Admin.ToString());
+    });
 });
 
 builder.Services.AddControllers();
