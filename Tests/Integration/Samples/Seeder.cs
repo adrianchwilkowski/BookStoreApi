@@ -168,7 +168,7 @@ namespace Tests.Integration.Samples
     }
     public class SeedToDb
     {
-        [Test]
+        //[Test]
         public async Task Seed()
         {
             var services = new ServiceCollection();
