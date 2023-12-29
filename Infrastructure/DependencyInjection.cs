@@ -14,11 +14,12 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-        services.AddIdentity<IdentityUser, IdentityRole>(options =>
+        services.AddIdentityCore<IdentityUser>(options =>
         {
             options.ClaimsIdentity.RoleClaimType = "role";
             options.ClaimsIdentity.UserNameClaimType = "name";
-        }).AddEntityFrameworkStores<ApplicationDbContext>()
+        }).AddRoles<IdentityRole>()
+        .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
     }
     public static void RegisterRepositories(this IServiceCollection services)

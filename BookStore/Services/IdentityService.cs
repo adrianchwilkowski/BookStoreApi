@@ -103,7 +103,7 @@ namespace BookStore.Services
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Key));
 
-            var signingCred = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature);
+            var signingCred = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var securityToken = new JwtSecurityToken(
                 claims: claims,

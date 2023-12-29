@@ -15,10 +15,7 @@ namespace BookStore.Controllers
             _searchService = searchService; 
         }
         [HttpGet("GetBooks")]
-        [Authorize(Policy = "ManagerPolicy")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Book>))]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [Authorize]
         public async Task<ActionResult<List<Book>>> GetBooks()
         {
             var result = await _searchService.GetBooks();
