@@ -29,13 +29,14 @@ namespace Infrastructure.Repositories
         }
         public async Task<List<BookInfo>> GetByBookId(Guid bookId)
         {
-            try
+            var response = await Context.BookInfo
+            .Where(x => x.BookId == bookId)
+            .ToListAsync();
+            if (response.Count == 0)
             {
-                return await Context.BookInfo
-                .Where(x => x.BookId == bookId)
-                .ToListAsync();
+                throw new NotFoundException("Bookinfo for book with given ID doesn't exist.");
             }
-            catch (Exception) { throw new NotFoundException("Bookinfo with given ID doesn't exist."); }
+            return response;
         }
         public async Task Create(BookInfo bookInfo)
         {

@@ -14,6 +14,7 @@ namespace Infrastructure.Repositories
     {
         Task<List<Book>> GetBooks();
         Task<Book> GetById(Guid id);
+        Task<Book> GetByTitle(string title);
         Task Create(Book book);
     }
     public class BooksRepository : IBooksRepository
@@ -36,6 +37,16 @@ namespace Infrastructure.Repositories
                 .FirstAsync();
             }
             catch (Exception) { throw new NotFoundException("Book with given ID doesn't exist."); }
+        }
+        public async Task<Book> GetByTitle(string title)
+        {
+            try
+            {
+                return await Context.Books
+                .Where(x => x.Title == title)
+                .FirstAsync();
+            }
+            catch (Exception) { throw new NotFoundException("Book with given title doesn't exist."); }
         }
         public async Task Create(Book book)
         {

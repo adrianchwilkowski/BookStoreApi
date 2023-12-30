@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Commands\" />
     <Folder Include="Models\Queries\" />
   </ItemGroup>
 
