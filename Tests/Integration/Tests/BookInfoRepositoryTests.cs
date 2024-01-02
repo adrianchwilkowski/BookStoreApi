@@ -32,9 +32,10 @@ namespace Tests.Integration.Tests
         [Test]
         public async Task GetByBookId_IfBookInfoDoesNotExist_ReturnEmptyList()
         {
-            var result = await bookInfoRepository.GetByBookId(Guid.NewGuid());
-
-            Assert.True(!result.Any());
+            Assert.ThrowsAsync<NotFoundException>( async () =>
+            {
+                await bookInfoRepository.GetByBookId(Guid.NewGuid());
+            });
         }
         [Test]
         public async Task CanCreateBookInfo()

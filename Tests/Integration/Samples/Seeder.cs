@@ -1,32 +1,22 @@
-﻿using Newtonsoft.Json;
-using Tests.Integration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Infrastructure;
+﻿using Infrastructure;
 using Infrastructure.Entities;
-using Microsoft.EntityFrameworkCore;
+using Infrastructure.Enums;
 using Infrastructure.Migrations;
-using System.Globalization;
 using Microsoft.AspNetCore.Identity;
-using Infrastructure.Repositories;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using BookStore.Services;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using System.Globalization;
 
 namespace Tests.Integration.Samples
 {
     public class Seeder
     {
-        public static void Seed(ApplicationDbContext context)
+        public static void Seed(ApplicationDbContext context, Guid id)
         {
             var books = SeedBooks();
             var bookInfoList = SeedBookInfo(books);
-            var orderList = SeedOrders(10);
+            var orderList = SeedOrders(10, id);
             var orderItemList = SeedOrderItems(orderList, bookInfoList, 2);
 
             context.Books.AddRange(books);
@@ -89,7 +79,7 @@ namespace Tests.Integration.Samples
             }
             return bookInfoList;
         }
-        public static List<Order> SeedOrders(int orderCount)
+        public static List<Order> SeedOrders(int orderCount, Guid id)
         {
             var orderList = new List<Order>();
             for (var i = 0; i < orderCount; i++)
@@ -97,7 +87,7 @@ namespace Tests.Integration.Samples
                 orderList.Add(
                     Order.Create(
                         i % 3,
-                        Guid.NewGuid()
+                        id
                         ));
             }
             return orderList;
@@ -117,7 +107,7 @@ namespace Tests.Integration.Samples
             }
             return orderItemList;
         }
-        public static async Task SeedUsers(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task<Guid> SeedUsers(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             var user = new IdentityUser
             {
@@ -164,6 +154,7 @@ namespace Tests.Integration.Samples
                 managerRole.Name,
                 adminRole.Name
             });
+            return Guid.Parse(user.Id);
         }
     }
     public class SeedToDb
@@ -191,8 +182,9 @@ namespace Tests.Integration.Samples
             var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
             var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            Seeder.Seed(context);
-            await Seeder.SeedUsers(userManager, roleManager);
+            var id = await Seeder.SeedUsers(userManager, roleManager);
+            Seeder.Seed(context, id);
+            
         }
         
     }

@@ -18,7 +18,7 @@ namespace Tests.Integration
         {
             DestroyDatabase();
             CreateDatabase();
-            Seeder.Seed(context);
+            Seeder.Seed(context, Guid.NewGuid());
         }
 
         public void Dispose()

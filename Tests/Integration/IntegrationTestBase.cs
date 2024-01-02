@@ -17,6 +17,7 @@ namespace Tests.Integration
 
         protected readonly IBooksRepository booksRepository;
         protected readonly IBookInfoRepository bookInfoRepository;
+        protected readonly IOrdersRepository ordersRepository;
 
         public IntegrationTestBase() 
         {
@@ -27,6 +28,7 @@ namespace Tests.Integration
             var serviceProvider = services.BuildServiceProvider();
             booksRepository = serviceProvider.GetRequiredService<IBooksRepository>();
             bookInfoRepository = serviceProvider.GetRequiredService<IBookInfoRepository>();
+            ordersRepository = serviceProvider.GetRequiredService<IOrdersRepository>();
         }
         protected static ApplicationDbContext TestDbContext()
         {
