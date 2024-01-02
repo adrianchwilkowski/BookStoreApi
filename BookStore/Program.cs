@@ -104,7 +104,9 @@ builder.Services.AddSwaggerGen(option =>
              },
              new string[] {}
      }
- });
+
+});
+    option.SwaggerDoc("v1", new OpenApiInfo { Title = "BookStoreApi", Version = "v1" }); ;
 });
 
 builder.Services.RegisterDbContext(builder.Configuration);
@@ -120,7 +122,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookStoreApi V1");
+    });
 }
 
 app.UseAuthentication();

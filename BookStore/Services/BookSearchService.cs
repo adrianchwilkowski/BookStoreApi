@@ -14,6 +14,7 @@ namespace BookStore.Services
         public Task<BookContract> GetById(Guid id);
         public Task<BookContract> GetByTitle(string title);
         public Task<BookInfoContract> GetInfoByBookId(Guid id);
+        public Task<BookInfo> GetFullInfoByBookId(Guid id);
     }
     public class BookSearchService : IBookSearchService
     {
@@ -63,6 +64,19 @@ namespace BookStore.Services
                 var response = await _bookInfoRepository.GetByBookId(id);
                 var result = response.OrderBy(item => item.Price).First();
                 return BookInfoContract.FromDomainModel(result);
+            }
+            catch (NotFoundException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<BookInfo> GetFullInfoByBookId(Guid id)
+        {
+            try
+            {
+                var response = await _bookInfoRepository.GetByBookId(id);
+                return response.OrderBy(item => item.Price).First();
             }
             catch (NotFoundException ex)
             {

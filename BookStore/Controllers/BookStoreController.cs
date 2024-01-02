@@ -26,7 +26,7 @@ namespace BookStore.Controllers
 
         [HttpPost("AddBook")]
         [Authorize(Policy = "ManagerPolicy")]
-        public async Task<IActionResult> AddBook([FromQuery] AddBookCommand book)
+        public async Task<IActionResult> AddBook([FromBody] AddBookCommand book)
         {
             try { 
                 await _searchService.AddBook(book);

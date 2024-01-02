@@ -1,5 +1,7 @@
 ﻿using BookStore.Services;
 using Infrastructure.Entities.Identity;
+using Infrastructure.Models.Commands;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
@@ -13,19 +15,39 @@ namespace BookStore.Controllers
         {
             _ordersService = ordersService;
         }
-        [HttpPut("Create")]
-        public async Task<IActionResult> Create([FromBody] int deliveryType)
+        
+
+        [HttpPost("AddToOrder")]
+        [Authorize]
+        public async Task<ActionResult<Guid>> AddToOrder([FromBody] AddOrderItemCommand command)
         {
             try
             {
-                await _ordersService.CreateOrder(deliveryType);
-                return Ok();
+                var result = await _ordersService.AddOrderItem(command);
+                return Ok(result);
             }
-            catch(UnauthorizedAccessException ex)
+            catch (AccessViolationException ex)
             {
                 return Unauthorized(ex.Message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("Create")]
+        public async Task<ActionResult<Guid>> Create([FromQuery] int deliveryType)
+        {
+            try
+            {
+                var result = await _ordersService.CreateOrder(deliveryType);
+                return Ok(result);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
