@@ -8,7 +8,7 @@ namespace BookStore.Services
     {
         public Task CreateOrder(int deliveryTypeNr);
     }
-    public class OrdersService
+    public class OrdersService : IOrdersService
     {
         private readonly IIdentityService _identityService;
         private readonly JwtInfo _jwtInfo;
@@ -29,6 +29,10 @@ namespace BookStore.Services
         {
             var login = _jwtInfo.GetName();
             var user = await _identityService.GetUserByLogin(login);
+            if(user == null)
+            {
+                throw new UnauthorizedAccessException("User with given login doesn't exist.");
+            }
             var order = Order.Create(deliveryTypeNr, Guid.Parse(user.Id));
             await _ordersRepository.CreateOrder(order);
         }

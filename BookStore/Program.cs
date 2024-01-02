@@ -112,6 +112,7 @@ builder.Services.RegisterRepositories();
 
 builder.Services.AddTransient<IIdentityService, IdentityService>();
 builder.Services.AddTransient<IBookSearchService, BookSearchService>();
+builder.Services.AddTransient<IOrdersService, OrdersService>();
 
 var app = builder.Build();
 
