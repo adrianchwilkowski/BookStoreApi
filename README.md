@@ -1,7 +1,5 @@
 # BookStoreApi
 
-![BookStore Logo](link_to_logo.png)
-
 ## Description
 
 BookStoreApi is a .NET Web API consisting of three projects:
