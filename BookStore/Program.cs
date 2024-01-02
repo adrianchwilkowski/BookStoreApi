@@ -1,5 +1,7 @@
+using BookStore.Helper;
 using BookStore.Services;
 using Infrastructure;
+using Infrastructure.Enums;
 using Infrastructure.Migrations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -57,6 +59,8 @@ builder.Services.AddAuthentication(o =>
     };
 });
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("JwtSettings"));
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<JwtInfo>();
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("UserPolicy", policy =>

@@ -26,5 +26,6 @@ public static class DependencyInjection
     {
         services.AddTransient<IBooksRepository, BooksRepository>();
         services.AddTransient<IBookInfoRepository, BookInfoRepository>();
+        services.AddTransient<IOrdersRepository, OrdersRepository>();
     }
 }

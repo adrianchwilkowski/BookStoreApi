@@ -28,11 +28,16 @@ namespace Infrastructure.Entities
                 var item = OrderedItem.Create(book, this);
                 item.ChangeQuantity(quantity);
                 Items.Append(item);
+                FullCost += quantity*book.Price;
             }
             else
             {
                 throw new OrderInProgressException("cannot modify order after sending");
             }
+        }
+        public void ChangeCost(double amountToAdd)
+        {
+            FullCost += amountToAdd;
         }
         public bool ChangeIsSentStatus(bool isSent)
         {

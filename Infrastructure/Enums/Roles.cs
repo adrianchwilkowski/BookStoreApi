@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure
+namespace Infrastructure.Enums
 {
     public enum Roles
     {
@@ -17,7 +17,7 @@ namespace Infrastructure
     {
         public async static Task seed(RoleManager<IdentityRole> roleManager)
         {
-            foreach(Roles role  in Enum.GetValues(typeof(Roles)))
+            foreach (Roles role in Enum.GetValues(typeof(Roles)))
             {
                 var identityRole = new IdentityRole { Name = role.ToString() };
                 await roleManager.CreateAsync(identityRole);

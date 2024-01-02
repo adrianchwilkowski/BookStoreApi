@@ -2,12 +2,13 @@
 using BookStore.Helper;
 using Infrastructure;
 using Infrastructure.Entities.Identity;
+using Infrastructure.Enums;
 using Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -17,6 +18,7 @@ namespace BookStore.Services
     {
         public Task<string> Login(LoginUser login);
         public Task<IdentityResult> Register(RegisterUser login);
+        public Task<IdentityUser> GetUserByLogin(string login);
     }
     public class IdentityService : IIdentityService
     {
@@ -65,6 +67,15 @@ namespace BookStore.Services
             }
 
             return result;
+        }
+        public async Task<IdentityUser> GetUserByLogin(string login)
+        {
+            var user = await _userManager.FindByNameAsync(login);
+            if (user != null)
+            {
+                return user;
+            }
+            throw new NotFoundException("Account with given login doesn't exist.");
         }
         private async Task<List<Claim>> GetClaims(IdentityUser user)
         {
